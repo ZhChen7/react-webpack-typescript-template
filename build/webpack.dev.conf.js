@@ -39,7 +39,7 @@ const webpackConfig = merge(baseWebpackConfig,{
   },
 })
 
-if (config.build.bundleAnalyzerReport) {
+if (config.build.isAnalyzer) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
