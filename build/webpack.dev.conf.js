@@ -8,10 +8,9 @@ const webpackConfig = merge(baseWebpackConfig,{
   mode: 'development',
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].[contenthash:4].bundle.js',
+    filename: 'js/[name].[contenthash:4].bundle.js',
     chunkFilename: '[id].[chunkhash].js',
-    publicPath: '/',
-    clean: true,
+    publicPath: '/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()

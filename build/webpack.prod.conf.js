@@ -6,12 +6,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const config = require('../config')
+const { ZcPlugin } = require('../plugin/customPlugin.js')
 
-const webpackConfig = merge(baseWebpackConfig,{
+const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
   optimization: {
     usedExports: true,
-    minimize: true,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -50,6 +50,9 @@ const webpackConfig = merge(baseWebpackConfig,{
         },
       }
     },
+    runtimeChunk: {
+      name: (entrypoint) => `runtime-${entrypoint.name}`,
+    },
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -58,9 +61,13 @@ const webpackConfig = merge(baseWebpackConfig,{
     publicPath: '/'
   },
   plugins: [
+    new ZcPlugin({
+      productName: 'zc',
+      platform: 'pc'
+    }),
     new CleanWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin()
-  ]
+  ],
 })
 
 module.exports = webpackConfig
